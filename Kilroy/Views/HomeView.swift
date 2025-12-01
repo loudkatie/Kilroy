@@ -29,6 +29,8 @@ struct HomeView: View {
     @State private var lastCheckLocation: CLLocation?
     @State private var hasTriggeredHaptic = false
     @State private var showingAllMemories = false
+    @State private var currentPlaceName: String = "here"
+    @State private var currentPlaceAddress: String?
     
     private var totalNearbyCount: Int {
         nearbyPhotoMemories.count + nearbyGoogleMemories.count + nearbyDroppedMemories.count
@@ -84,7 +86,8 @@ struct HomeView: View {
             AllMemoriesSheet(
                 photoMemories: nearbyPhotoMemories,
                 googleMemories: nearbyGoogleMemories,
-                droppedMemories: nearbyDroppedMemories
+                droppedMemories: nearbyDroppedMemories,
+                placeName: currentPlaceName
             )
         }
         .fullScreenCover(isPresented: $showingCapture) {
@@ -229,6 +232,7 @@ struct HomeView: View {
                 photoMemories: nearbyPhotoMemories,
                 googleMemories: nearbyGoogleMemories,
                 droppedMemories: nearbyDroppedMemories,
+                placeName: currentPlaceName,
                 onDismiss: {
                     withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
                         showingMemoryCard = false
@@ -273,6 +277,9 @@ struct HomeView: View {
         
         lastCheckLocation = location
         
+        // Reverse geocode for place name
+        reverseGeocode(location: location)
+        
         let photoMemories = photosService.findMemories(near: location, radius: 50)
         let googleMemories = googlePhotosService.findMemories(near: location, radius: 50)
         let droppedMemories = memoryStore.memoriesNear(location, radius: 50)
@@ -300,6 +307,38 @@ struct HomeView: View {
         if newCount == 0 {
             hasTriggeredHaptic = false
             showingMemoryCard = false
+        }
+    }
+    
+    private func reverseGeocode(location: CLLocation) {
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(location) { placemarks, error in
+            guard let placemark = placemarks?.first else { return }
+            
+            Task { @MainActor in
+                // Prefer POI name (like "Town Restaurant"), fall back to street address
+                if let name = placemark.name,
+                   name != placemark.thoroughfare,
+                   !name.contains(placemark.subThoroughfare ?? "---") {
+                    // It's a POI name, not just a street address
+                    currentPlaceName = name
+                } else if let street = placemark.thoroughfare,
+                          let number = placemark.subThoroughfare {
+                    // Street address: "156 Ruby Ave"
+                    currentPlaceName = "\(number) \(street)"
+                } else if let street = placemark.thoroughfare {
+                    currentPlaceName = street
+                } else {
+                    currentPlaceName = "here"
+                }
+                
+                // Full address for potential future use
+                currentPlaceAddress = [
+                    placemark.thoroughfare,
+                    placemark.locality,
+                    placemark.administrativeArea
+                ].compactMap { $0 }.joined(separator: ", ")
+            }
         }
     }
 }
@@ -336,6 +375,7 @@ struct NearbyMemoryCard: View {
     let photoMemories: [LocalMemory]
     let googleMemories: [GooglePhotoMemory]
     let droppedMemories: [DroppedMemory]
+    let placeName: String
     let onDismiss: () -> Void
     let onViewAll: () -> Void
     
@@ -353,9 +393,15 @@ struct NearbyMemoryCard: View {
             
             // Title
             HStack {
-                Text(totalCount == 1 ? "A memory is here" : "\(totalCount) memories here")
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(.kilroyText)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(totalCount == 1 ? "1 memory" : "\(totalCount) memories")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(.kilroyText)
+                    
+                    Text("at \(placeName)")
+                        .font(.system(size: 14))
+                        .foregroundColor(.kilroyTextSecondary)
+                }
                 
                 Spacer()
                 
@@ -597,12 +643,7 @@ struct CollectionSheet: View {
 struct ProfileSheet: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var photosService: PhotosService
-    @EnvironmentObject var googlePhotosService: GooglePhotosService
     @EnvironmentObject var memoryStore: MemoryStore
-    
-    @State private var isConnectingGoogle = false
-    @State private var showError = false
-    @State private var errorMessage = ""
     
     var body: some View {
         NavigationStack {
@@ -610,70 +651,35 @@ struct ProfileSheet: View {
                 // Stats
                 Section {
                     statRow(icon: "mappin.circle.fill", label: "Kilroys Dropped", value: "\(memoryStore.memories.count)")
-                    statRow(icon: "photo.fill", label: "Apple Photos Indexed", value: "\(photosService.indexedCount)")
-                    statRow(icon: "g.circle.fill", label: "Google Photos Indexed", value: "\(googlePhotosService.indexedCount)")
+                    statRow(icon: "photo.fill", label: "Photos Indexed", value: "\(photosService.indexedCount)")
                 } header: {
-                    Text("Stats")
+                    Text("Your Kilroy")
                 }
                 
                 // Photo Sources
                 Section {
-                    // Apple Photos
                     HStack {
                         Image(systemName: "photo.fill")
                             .foregroundStyle(LinearGradient.kilroyGradient)
                             .frame(width: 28)
                         
-                        Text("Apple Photos")
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Apple Photos")
+                                .font(.system(size: 15))
+                            Text("\(photosService.indexedCount) geotagged photos")
+                                .font(.system(size: 12))
+                                .foregroundColor(.kilroyTextSecondary)
+                        }
                         
                         Spacer()
                         
                         Image(systemName: "checkmark.circle.fill")
                             .foregroundColor(.green)
                     }
-                    
-                    // Google Photos
-                    HStack {
-                        Image(systemName: "g.circle.fill")
-                            .foregroundColor(.red)
-                            .frame(width: 28)
-                        
-                        Text("Google Photos")
-                        
-                        Spacer()
-                        
-                        if googlePhotosService.isSignedIn {
-                            Menu {
-                                Button {
-                                    Task {
-                                        await googlePhotosService.buildIndex()
-                                    }
-                                } label: {
-                                    Label("Refresh", systemImage: "arrow.clockwise")
-                                }
-                                
-                                Button(role: .destructive) {
-                                    googlePhotosService.signOut()
-                                } label: {
-                                    Label("Disconnect", systemImage: "xmark.circle")
-                                }
-                            } label: {
-                                Text(googlePhotosService.userEmail ?? "Connected")
-                                    .font(.system(size: 13))
-                                    .foregroundColor(.kilroyTextSecondary)
-                            }
-                        } else {
-                            Button("Connect") {
-                                connectGoogle()
-                            }
-                            .font(.system(size: 13, weight: .medium))
-                            .foregroundColor(.kilroyPurple)
-                        }
-                    }
                 } header: {
-                    Text("Photo Sources")
+                    Text("Photo Source")
                 } footer: {
-                    Text("Your photo libraries are scanned for location data to surface memories at the right places.")
+                    Text("Your geotagged photos surface as memories when you return to where you took them.")
                 }
                 
                 // About
@@ -706,11 +712,6 @@ struct ProfileSheet: View {
                         .foregroundStyle(LinearGradient.kilroyGradient)
                 }
             }
-            .alert("Error", isPresented: $showError) {
-                Button("OK") { }
-            } message: {
-                Text(errorMessage)
-            }
         }
     }
     
@@ -729,22 +730,6 @@ struct ProfileSheet: View {
                 .font(.system(size: 15, weight: .medium))
         }
     }
-    
-    private func connectGoogle() {
-        isConnectingGoogle = true
-        
-        Task {
-            do {
-                try await googlePhotosService.signIn()
-                await googlePhotosService.buildIndex()
-                isConnectingGoogle = false
-            } catch {
-                isConnectingGoogle = false
-                errorMessage = error.localizedDescription
-                showError = true
-            }
-        }
-    }
 }
 
 // MARK: - All Memories Sheet
@@ -753,6 +738,7 @@ struct AllMemoriesSheet: View {
     let photoMemories: [LocalMemory]
     let googleMemories: [GooglePhotoMemory]
     let droppedMemories: [DroppedMemory]
+    let placeName: String
     
     @Environment(\.dismiss) private var dismiss
     
@@ -781,7 +767,7 @@ struct AllMemoriesSheet: View {
                     }
                 }
             }
-            .navigationTitle("\(totalCount) memories here")
+            .navigationTitle("\(totalCount) at \(placeName)")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
