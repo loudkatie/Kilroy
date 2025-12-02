@@ -476,8 +476,8 @@ struct DroppedMemoryThumbnail: View {
             
             if let comment = memory.comment, !comment.isEmpty {
                 Text(comment)
-                    .font(.system(size: 11))
-                    .foregroundColor(.kilroyTextSecondary)
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(.kilroyText)
                     .lineLimit(1)
                     .frame(width: 100, alignment: .leading)
             }
