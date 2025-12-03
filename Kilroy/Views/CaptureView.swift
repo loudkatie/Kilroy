@@ -138,22 +138,23 @@ struct CapturePreviewView: View {
     @FocusState private var isCommentFocused: Bool
     
     var body: some View {
-        ZStack {
-            Color.kilroyBackground.ignoresSafeArea()
-            
-            VStack(spacing: 0) {
-                // Photo at top — compact to show comment box
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: 200)
-                    .clipped()
+        NavigationStack {
+            ZStack {
+                Color.kilroyBackground.ignoresSafeArea()
                 
-                // Main content — scrollable
+                // Everything scrollable
                 ScrollView {
                     VStack(spacing: KilroySpacing.lg) {
                         
-                        // STORY FIELD — FIRST AND PROMINENT
+                        // Photo — full width, scrollable
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 300)
+                            .clipped()
+                        
+                        // STORY FIELD
                         VStack(alignment: .leading, spacing: 8) {
                             Text("What's the story?")
                                 .font(.system(size: 20, weight: .semibold))
@@ -168,19 +169,10 @@ struct CapturePreviewView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: KilroyRadius.md))
                                 .focused($isCommentFocused)
                                 .lineLimit(4...8)
-                                .toolbar {
-                                    ToolbarItemGroup(placement: .keyboard) {
-                                        Spacer()
-                                        Button("Done") {
-                                            isCommentFocused = false
-                                        }
-                                    }
-                                }
                         }
                         .padding(.horizontal, KilroySpacing.lg)
-                        .padding(.top, KilroySpacing.lg)
                         
-                        // Location card — secondary
+                        // Location card
                         VStack(alignment: .leading, spacing: KilroySpacing.sm) {
                             HStack {
                                 Image(systemName: "mappin.circle.fill")
@@ -199,6 +191,11 @@ struct CapturePreviewView: View {
                                     }
                                 }
                                 Spacer()
+                                
+                                // Edit hint
+                                Image(systemName: "chevron.right")
+                                    .font(.caption)
+                                    .foregroundColor(.kilroyTextSecondary)
                             }
                             
                             // Mini map
@@ -226,48 +223,58 @@ struct CapturePreviewView: View {
                         .clipShape(RoundedRectangle(cornerRadius: KilroyRadius.lg))
                         .padding(.horizontal, KilroySpacing.lg)
                         
-                        Spacer(minLength: 120)
+                        Spacer(minLength: 100)
                     }
                 }
+                .scrollDismissesKeyboard(.interactively)
                 .onTapGesture {
                     isCommentFocused = false
                 }
             }
-        }
-        .safeAreaInset(edge: .bottom) {
-            // Action buttons — always visible
-            HStack(spacing: KilroySpacing.md) {
-                Button(action: onRetake) {
-                    Text("Retake")
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(.kilroyText)
+            .navigationBarHidden(true)
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Done") {
+                        isCommentFocused = false
+                    }
+                }
+            }
+            .safeAreaInset(edge: .bottom) {
+                // Action buttons — always visible
+                HStack(spacing: KilroySpacing.md) {
+                    Button(action: onRetake) {
+                        Text("Retake")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.kilroyText)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, KilroySpacing.md)
+                            .background(Color.kilroySurface)
+                            .clipShape(RoundedRectangle(cornerRadius: KilroyRadius.md))
+                    }
+                    
+                    Button(action: onDrop) {
+                        HStack {
+                            if isSaving {
+                                ProgressView()
+                                    .tint(.white)
+                            } else {
+                                Image(systemName: "mappin.and.ellipse")
+                                Text("Drop Kilroy")
+                            }
+                        }
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, KilroySpacing.md)
-                        .background(Color.kilroySurface)
+                        .background(LinearGradient.kilroyGradient)
                         .clipShape(RoundedRectangle(cornerRadius: KilroyRadius.md))
-                }
-                
-                Button(action: onDrop) {
-                    HStack {
-                        if isSaving {
-                            ProgressView()
-                                .tint(.white)
-                        } else {
-                            Image(systemName: "mappin.and.ellipse")
-                            Text("Drop Kilroy")
-                        }
                     }
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, KilroySpacing.md)
-                    .background(LinearGradient.kilroyGradient)
-                    .clipShape(RoundedRectangle(cornerRadius: KilroyRadius.md))
+                    .disabled(isSaving)
                 }
-                .disabled(isSaving)
+                .padding(KilroySpacing.lg)
+                .background(Color.kilroyBackground)
             }
-            .padding(KilroySpacing.lg)
-            .background(Color.kilroyBackground)
         }
     }
 }
