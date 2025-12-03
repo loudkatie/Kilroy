@@ -691,7 +691,7 @@ struct ProfileSheet: View {
                             .foregroundColor(.kilroyTextSecondary)
                     }
                     
-                    Link(destination: URL(string: "https://loudlabs.co")!) {
+                    Link(destination: URL(string: "https://loudlabs.xyz")!) {
                         HStack {
                             Text("Loud Labs")
                             Spacer()
