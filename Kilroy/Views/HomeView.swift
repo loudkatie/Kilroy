@@ -17,11 +17,14 @@ struct HomeView: View {
     @EnvironmentObject var googlePhotosService: GooglePhotosService
     @EnvironmentObject var memoryStore: MemoryStore
     @EnvironmentObject var hapticsService: HapticsService
+    @EnvironmentObject var firebaseService: FirebaseService
     
     @State private var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     @State private var nearbyPhotoMemories: [LocalMemory] = []
     @State private var nearbyGoogleMemories: [GooglePhotoMemory] = []
     @State private var nearbyDroppedMemories: [DroppedMemory] = []
+    @State private var nearbyCloudKilroys: [CloudKilroy] = []
+    @State private var allCloudKilroys: [CloudKilroy] = []
     @State private var showingMemoryCard = false
     @State private var showingCapture = false
     @State private var showingCollection = false
@@ -33,7 +36,7 @@ struct HomeView: View {
     @State private var currentPlaceAddress: String?
     
     private var totalNearbyCount: Int {
-        nearbyPhotoMemories.count + nearbyGoogleMemories.count + nearbyDroppedMemories.count
+        nearbyPhotoMemories.count + nearbyGoogleMemories.count + nearbyDroppedMemories.count + nearbyCloudKilroys.count
     }
     
     private var allKilroyPins: [DroppedMemory] {
@@ -110,6 +113,18 @@ struct HomeView: View {
             Task {
                 await googlePhotosService.restorePreviousSignIn()
             }
+            
+            // Fetch all cloud Kilroys for map pins
+            Task {
+                do {
+                    let kilroys = try await firebaseService.fetchAllKilroys()
+                    await MainActor.run {
+                        allCloudKilroys = kilroys
+                    }
+                } catch {
+                    print("HomeView: Failed to fetch all Kilroys - \(error.localizedDescription)")
+                }
+            }
         }
     }
     
@@ -163,10 +178,17 @@ struct HomeView: View {
         Map(position: $cameraPosition) {
             UserAnnotation()
             
-            // Show ALL dropped Kilroys on the map
+            // Show local dropped Kilroys on the map
             ForEach(allKilroyPins) { memory in
                 Annotation("", coordinate: memory.coordinate.clCoordinate) {
                     KilroyMapPin(isNearby: isNearby(memory))
+                }
+            }
+            
+            // Show cloud Kilroys from other users
+            ForEach(allCloudKilroys) { kilroy in
+                Annotation("", coordinate: kilroy.coordinate) {
+                    KilroyMapPin(isNearby: isNearbyCloud(kilroy), isCloud: true)
                 }
             }
         }
@@ -267,6 +289,11 @@ struct HomeView: View {
         return location.distance(from: memoryLocation) <= 50
     }
     
+    private func isNearbyCloud(_ kilroy: CloudKilroy) -> Bool {
+        guard let location = locationService.currentLocation else { return false }
+        return location.distance(from: kilroy.location) <= 50
+    }
+    
     private func checkForMemories(at location: CLLocation?, force: Bool = false) {
         guard let location = location else { return }
         
@@ -290,9 +317,35 @@ struct HomeView: View {
         nearbyGoogleMemories = googleMemories
         nearbyDroppedMemories = droppedMemories
         
+        // Fetch cloud Kilroys from Firebase
+        Task {
+            do {
+                let cloudKilroys = try await firebaseService.fetchKilroysNear(
+                    coordinate: location.coordinate,
+                    radiusMeters: 50
+                )
+                await MainActor.run {
+                    nearbyCloudKilroys = cloudKilroys
+                    
+                    // Re-check if we should trigger haptic with cloud Kilroys included
+                    let newTotalCount = totalNearbyCount
+                    if newTotalCount > 0 && previousCount == 0 && !hasTriggeredHaptic {
+                        hapticsService.approachTap()
+                        hasTriggeredHaptic = true
+                        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                            showingMemoryCard = true
+                        }
+                    }
+                }
+            } catch {
+                print("HomeView: Failed to fetch cloud Kilroys - \(error.localizedDescription)")
+            }
+        }
+        
         let newCount = photoMemories.count + googleMemories.count + droppedMemories.count
         
-        // Trigger haptic and show card when entering a memory zone
+        // Trigger haptic and show card when entering a memory zone (for local memories)
+        // Cloud Kilroys will trigger separately when they load
         if newCount > 0 && previousCount == 0 && !hasTriggeredHaptic {
             hapticsService.approachTap()
             hasTriggeredHaptic = true
@@ -304,7 +357,7 @@ struct HomeView: View {
         }
         
         // Reset haptic trigger when leaving zone
-        if newCount == 0 {
+        if newCount == 0 && nearbyCloudKilroys.isEmpty {
             hasTriggeredHaptic = false
             showingMemoryCard = false
         }
@@ -347,6 +400,7 @@ struct HomeView: View {
 
 struct KilroyMapPin: View {
     let isNearby: Bool
+    var isCloud: Bool = false
     
     var body: some View {
         ZStack {
@@ -357,7 +411,7 @@ struct KilroyMapPin: View {
                     .frame(width: 32, height: 32)
             }
             
-            // Pin
+            // Pin — cloud Kilroys have slight tint difference
             Circle()
                 .fill(isNearby ? Color.kilroyPurple : Color.kilroyPurple.opacity(0.6))
                 .frame(width: 16, height: 16)
@@ -375,12 +429,13 @@ struct NearbyMemoryCard: View {
     let photoMemories: [LocalMemory]
     let googleMemories: [GooglePhotoMemory]
     let droppedMemories: [DroppedMemory]
+    let cloudKilroys: [CloudKilroy]
     let placeName: String
     let onDismiss: () -> Void
     let onViewAll: () -> Void
     
     private var totalCount: Int {
-        photoMemories.count + googleMemories.count + droppedMemories.count
+        photoMemories.count + googleMemories.count + droppedMemories.count + cloudKilroys.count
     }
     
     var body: some View {

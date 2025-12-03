@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GoogleSignIn
+import FirebaseCore
 
 @main
 struct KilroyApp: App {
@@ -16,9 +17,15 @@ struct KilroyApp: App {
     @StateObject private var googlePhotosService = GooglePhotosService()
     @StateObject private var memoryStore = MemoryStore()
     @StateObject private var hapticsService = HapticsService()
+    @StateObject private var firebaseService = FirebaseService.shared
     
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @State private var showingSplash = true
+    
+    init() {
+        FirebaseApp.configure()
+        FirebaseService.shared.configure()
+    }
     
     var body: some Scene {
         WindowGroup {
@@ -31,6 +38,7 @@ struct KilroyApp: App {
                         .environmentObject(googlePhotosService)
                         .environmentObject(memoryStore)
                         .environmentObject(hapticsService)
+                        .environmentObject(firebaseService)
                         .onOpenURL { url in
                             GIDSignIn.sharedInstance.handle(url)
                         }
@@ -44,6 +52,7 @@ struct KilroyApp: App {
                     .environmentObject(googlePhotosService)
                     .environmentObject(memoryStore)
                     .environmentObject(hapticsService)
+                    .environmentObject(firebaseService)
                 }
                 
                 // Splash screen — shows every app open

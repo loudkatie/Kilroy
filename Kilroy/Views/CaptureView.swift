@@ -14,6 +14,7 @@ struct CaptureView: View {
     @EnvironmentObject var locationService: LocationService
     @EnvironmentObject var memoryStore: MemoryStore
     @EnvironmentObject var hapticsService: HapticsService
+    @EnvironmentObject var firebaseService: FirebaseService
     
     @State private var capturedImage: UIImage?
     @State private var showCamera = true
@@ -107,7 +108,9 @@ struct CaptureView: View {
         isSaving = true
         hapticsService.approachTap()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        // Save locally AND upload to Firebase
+        Task {
+            // 1. Save locally first
             let _ = memoryStore.saveMemory(
                 image: image,
                 coordinate: coordinate,
@@ -116,8 +119,25 @@ struct CaptureView: View {
                 placeAddress: placeAddress
             )
             
-            hapticsService.success()
-            dismiss()
+            // 2. Upload to Firebase so others can see it
+            do {
+                let _ = try await firebaseService.uploadKilroy(
+                    image: image,
+                    coordinate: coordinate,
+                    comment: comment.isEmpty ? nil : comment,
+                    placeName: placeName,
+                    placeAddress: placeAddress
+                )
+                print("CaptureView: Kilroy uploaded to Firebase")
+            } catch {
+                print("CaptureView: Firebase upload failed - \(error.localizedDescription)")
+                // Still saved locally, so don't fail the whole drop
+            }
+            
+            await MainActor.run {
+                hapticsService.success()
+                dismiss()
+            }
         }
     }
 }

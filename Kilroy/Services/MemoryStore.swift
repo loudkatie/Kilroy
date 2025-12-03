@@ -33,7 +33,7 @@ final class MemoryStore: ObservableObject {
     
     // MARK: - Public
     
-    /// Save a new memory with image
+    /// Save a new memory with image — saves locally AND uploads to Firebase
     func saveMemory(
         image: UIImage,
         coordinate: CLLocationCoordinate2D,
@@ -44,7 +44,7 @@ final class MemoryStore: ObservableObject {
         let id = UUID()
         let filename = "\(id.uuidString).jpg"
         
-        // Save image
+        // Save image locally
         guard saveImage(image, filename: filename) else {
             print("MemoryStore: Failed to save image")
             return nil
@@ -63,7 +63,25 @@ final class MemoryStore: ObservableObject {
         memories.insert(memory, at: 0)
         persistMemories()
         
-        print("MemoryStore: Saved memory at \(placeName ?? "unknown location")")
+        print("MemoryStore: Saved memory locally at \(placeName ?? "unknown location")")
+        
+        // Upload to Firebase (async, fire-and-forget for now)
+        Task {
+            do {
+                _ = try await FirebaseService.shared.uploadKilroy(
+                    image: image,
+                    location: coordinate,
+                    placeName: placeName ?? "Unknown",
+                    placeAddress: placeAddress,
+                    comment: comment
+                )
+                print("MemoryStore: ✅ Uploaded to Firebase")
+            } catch {
+                print("MemoryStore: ⚠️ Firebase upload failed: \(error)")
+                // Local save still succeeded, so we don't fail the whole operation
+            }
+        }
+        
         return memory
     }
     
