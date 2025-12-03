@@ -142,11 +142,11 @@ struct CapturePreviewView: View {
             Color.kilroyBackground.ignoresSafeArea()
             
             VStack(spacing: 0) {
-                // Photo at top — compact, not too tall
+                // Photo at top — compact to show comment box
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFill()
-                    .frame(height: 280)
+                    .frame(height: 200)
                     .clipped()
                 
                 // Main content — scrollable
@@ -168,6 +168,14 @@ struct CapturePreviewView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: KilroyRadius.md))
                                 .focused($isCommentFocused)
                                 .lineLimit(4...8)
+                                .toolbar {
+                                    ToolbarItemGroup(placement: .keyboard) {
+                                        Spacer()
+                                        Button("Done") {
+                                            isCommentFocused = false
+                                        }
+                                    }
+                                }
                         }
                         .padding(.horizontal, KilroySpacing.lg)
                         .padding(.top, KilroySpacing.lg)
