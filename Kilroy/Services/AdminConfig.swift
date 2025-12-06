@@ -16,8 +16,8 @@ struct AdminConfig {
     // Get your deviceId from Settings > Developer > Device ID (tap copy icon)
     
     private static let adminDeviceIds: Set<String> = [
-        // Katie's devices - ADD YOUR DEVICE ID HERE
-        // Example: "A1B2C3D4-E5F6-7890-ABCD-EF1234567890"
+        // Katie's devices
+        "53B8FED8-433E-4D26-A187-839D25C6AAAD",
         
         // Wedge's devices
         // Derek's devices
