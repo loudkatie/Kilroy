@@ -33,6 +33,12 @@
 		C4F417341A63259070058773 /* MemoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ECCEAB70708E4B4B25A270 /* MemoryStore.swift */; };
 		C8FF231BF61BAC415FE37204 /* KilroyTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C299555F2052D311AFC3BB8A /* KilroyTheme.swift */; };
 		E09660C2324DE6862B714F6B /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A5BDFE39B9D88B9DD99520 /* AppState.swift */; };
+		E200C4012EE1496E00B3A6BD /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E200C4002EE1496E00B3A6BD /* FirebaseAuth */; };
+		E200C4032EE1496E00B3A6BD /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E200C4022EE1496E00B3A6BD /* FirebaseFirestore */; };
+		E200C4052EE1496E00B3A6BD /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E200C4042EE1496E00B3A6BD /* FirebaseStorage */; };
+		E200C4092EE14A1E00B3A6BD /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E200C4082EE14A1E00B3A6BD /* FirebaseService.swift */; };
+		E200C40D2EE14A9A00B3A6BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E200C40C2EE14A9A00B3A6BD /* GoogleService-Info.plist */; };
+		E2BA8D292EE406BE00C9F2C0 /* AdminConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BA8D282EE406BE00C9F2C0 /* AdminConfig.swift */; };
 		E30D7BDD8F7083B9F56A2C23 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE6E85C0203B8320083C4E9 /* CameraView.swift */; };
 		E54075F62FD47339AF78BA26 /* CircleSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32572E3E5ADAA20CC1032171 /* CircleSelector.swift */; };
 		E56E2682205A638E636DC8C7 /* MemoryMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3119002CC10711A91CEF893 /* MemoryMapView.swift */; };
@@ -76,6 +82,9 @@
 		D8EEDD6A1CEBA0919594C226 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBA3B76291E50ECD16B5C189 /* KilroyMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KilroyMemory.swift; sourceTree = "<group>"; };
 		DBE6E85C0203B8320083C4E9 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		E200C4082EE14A1E00B3A6BD /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		E200C40C2EE14A9A00B3A6BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E2BA8D282EE406BE00C9F2C0 /* AdminConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminConfig.swift; sourceTree = "<group>"; };
 		F488507C2B51C82945C9DCEA /* MemoriesSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesSheet.swift; sourceTree = "<group>"; };
 		F9436E293D61FC3CCB00D365 /* GooglePhotosService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePhotosService.swift; sourceTree = "<group>"; };
 		FB7CFE4EAA95047CDB406297 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -87,6 +96,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2AF939A99AC565392D8C1AFD /* GoogleSignIn in Frameworks */,
+				E200C4052EE1496E00B3A6BD /* FirebaseStorage in Frameworks */,
+				E200C4012EE1496E00B3A6BD /* FirebaseAuth in Frameworks */,
+				E200C4032EE1496E00B3A6BD /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +116,8 @@
 		281444DC693341330C47763B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				E2BA8D282EE406BE00C9F2C0 /* AdminConfig.swift */,
+				E200C4082EE14A1E00B3A6BD /* FirebaseService.swift */,
 				F9436E293D61FC3CCB00D365 /* GooglePhotosService.swift */,
 				9783DEAC2B51CE1354B1C385 /* HapticsService.swift */,
 				30DD6CA461D121A67FBF3423 /* LocationService.swift */,
@@ -140,6 +154,7 @@
 		76D1D64EA8D6856099D092E2 /* Kilroy */ = {
 			isa = PBXGroup;
 			children = (
+				E200C40C2EE14A9A00B3A6BD /* GoogleService-Info.plist */,
 				F614BE8E12099C464F816AAD /* App */,
 				0E7EF63DC7902840DA4D5E8B /* Design */,
 				4BA32F3F4F9766BB0EA4BD84 /* Models */,
@@ -232,6 +247,9 @@
 			name = Kilroy;
 			packageProductDependencies = (
 				BB02032E6922C270C295625A /* GoogleSignIn */,
+				E200C4002EE1496E00B3A6BD /* FirebaseAuth */,
+				E200C4022EE1496E00B3A6BD /* FirebaseFirestore */,
+				E200C4042EE1496E00B3A6BD /* FirebaseStorage */,
 			);
 			productName = Kilroy;
 			productReference = 6E6A589511E28590962E2F8F /* Kilroy.app */;
@@ -263,6 +281,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				0570B9C273D353ADD4D44806 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				E200C3FF2EE1496E00B3A6BD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			projectDirPath = "";
 			projectRoot = "";
@@ -279,6 +298,7 @@
 			files = (
 				0B8F5E01F410919A710DBA5F /* Assets.xcassets in Resources */,
 				7893D5D4192349C5FAAAAB7D /* kilroy_icon_black.png in Resources */,
+				E200C40D2EE14A9A00B3A6BD /* GoogleService-Info.plist in Resources */,
 				EB511968E11CD1203967891A /* kilroy_icon_black_1024.png in Resources */,
 				414ACFD75EEFE69D14B4A3E6 /* kilroy_icon_purple.png in Resources */,
 				F12D5D1FBC7764873FB26D08 /* kilroy_icon_purple_1024.png in Resources */,
@@ -306,6 +326,7 @@
 				6BED5299BB39AEF196911B38 /* HomeView.swift in Sources */,
 				555FF3F6ED1CA13C3CDE1578 /* KilroyApp.swift in Sources */,
 				C2DBACAF3D7B947A072C3AB8 /* KilroyMemory.swift in Sources */,
+				E2BA8D292EE406BE00C9F2C0 /* AdminConfig.swift in Sources */,
 				C8FF231BF61BAC415FE37204 /* KilroyTheme.swift in Sources */,
 				EACCF1175E763210952B3A88 /* LocationService.swift in Sources */,
 				936FCCC631C25C9D5AB41F83 /* MemoriesSheet.swift in Sources */,
@@ -315,6 +336,7 @@
 				C4F417341A63259070058773 /* MemoryStore.swift in Sources */,
 				2B24851C140FBDB974E54731 /* OnboardingView.swift in Sources */,
 				9314A17848D56CD20C75C01D /* PhotosService.swift in Sources */,
+				E200C4092EE14A1E00B3A6BD /* FirebaseService.swift in Sources */,
 				65B3B6F8C5C881A0DC20B4B0 /* PrivacyCircle.swift in Sources */,
 				731CF3901A9326337448C5D0 /* PulseRing.swift in Sources */,
 				6CD97007077A49B7FFAC2E0A /* SettingsView.swift in Sources */,
@@ -523,6 +545,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		E200C3FF2EE1496E00B3A6BD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -530,6 +560,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0570B9C273D353ADD4D44806 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignIn;
+		};
+		E200C4002EE1496E00B3A6BD /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E200C3FF2EE1496E00B3A6BD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		E200C4022EE1496E00B3A6BD /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E200C3FF2EE1496E00B3A6BD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		E200C4042EE1496E00B3A6BD /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E200C3FF2EE1496E00B3A6BD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -702,6 +702,20 @@ struct ProfileSheet: View {
     @EnvironmentObject var photosService: PhotosService
     @EnvironmentObject var memoryStore: MemoryStore
     
+    // Get device ID for admin check
+    private var deviceId: String {
+        if let existing = UserDefaults.standard.string(forKey: "kilroy_device_id") {
+            return existing
+        }
+        let newId = UUID().uuidString
+        UserDefaults.standard.set(newId, forKey: "kilroy_device_id")
+        return newId
+    }
+    
+    private var isAdmin: Bool {
+        AdminConfig.isAdmin(deviceId: deviceId)
+    }
+    
     var body: some View {
         NavigationStack {
             List {
@@ -759,6 +773,41 @@ struct ProfileSheet: View {
                     }
                 } header: {
                     Text("About")
+                }
+                
+                // Developer section
+                Section {
+                    HStack {
+                        Text("Device ID")
+                        Spacer()
+                        Text(String(deviceId.prefix(8)) + "...")
+                            .font(.system(size: 12, design: .monospaced))
+                            .foregroundColor(.kilroyTextSecondary)
+                        
+                        Button {
+                            UIPasteboard.general.string = deviceId
+                        } label: {
+                            Image(systemName: "doc.on.doc")
+                                .font(.caption)
+                                .foregroundColor(.kilroyActive)
+                        }
+                    }
+                    
+                    if isAdmin {
+                        HStack {
+                            Image(systemName: "star.fill")
+                                .foregroundColor(.yellow)
+                                .frame(width: 28)
+                            Text("Admin Mode Active")
+                            Spacer()
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(.green)
+                        }
+                    }
+                } header: {
+                    Text("Developer")
+                } footer: {
+                    Text("Tap copy icon to copy your full device ID.")
                 }
             }
             .navigationTitle("Profile")
