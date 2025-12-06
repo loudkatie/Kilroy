@@ -254,6 +254,7 @@ struct HomeView: View {
                 photoMemories: nearbyPhotoMemories,
                 googleMemories: nearbyGoogleMemories,
                 droppedMemories: nearbyDroppedMemories,
+                cloudKilroys: nearbyCloudKilroys,
                 placeName: currentPlaceName,
                 onDismiss: {
                     withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
@@ -291,7 +292,8 @@ struct HomeView: View {
     
     private func isNearbyCloud(_ kilroy: CloudKilroy) -> Bool {
         guard let location = locationService.currentLocation else { return false }
-        return location.distance(from: kilroy.location) <= 50
+        let kilroyLocation = CLLocation(latitude: kilroy.latitude, longitude: kilroy.longitude)
+        return location.distance(from: kilroyLocation) <= 50
     }
     
     private func checkForMemories(at location: CLLocation?, force: Bool = false) {

@@ -43,7 +43,7 @@ An iOS app that creates a "secret club" experience where users discover geotagge
 
 ---
 
-## PART 3: TECHNICAL STATE (As of Dec 3, 2025)
+## PART 3: TECHNICAL STATE (As of Dec 5, 2025 - FIREBASE LIVE!)
 
 ### Repository
 - **Location**: `/Users/katiemacair-2025/04_Developer/Kilroy/`
@@ -119,30 +119,25 @@ Kilroy/
 
 ---
 
-## PART 4: CURRENT BLOCKER 🚨
+## PART 4: FIREBASE STATUS ✅ LIVE!
 
-### Firebase SDK Not Yet Added to Xcode
+### Firebase Backend Working (Dec 5, 2025)
 
-**Status**: Code is written, but Firebase Swift packages haven't been added in Xcode.
+**CRITICAL**: Never let ChatGPT touch this codebase again. On Dec 5, it overwrote KilroyApp.swift and OnboardingView.swift, created duplicate files, and broke the build. Claude (CTO) fixed it.
 
-**What Katie needs to do in Xcode**:
-1. File → Add Package Dependencies...
-2. Paste: `https://github.com/firebase/firebase-ios-sdk`
-3. Wait for it to load (can take 30-60 seconds)
-4. Select ONLY these 3 packages:
-   - ✅ FirebaseFirestore
-   - ✅ FirebaseStorage
-   - ✅ FirebaseAuth
-5. Click Add Package
-6. Right-click Kilroy folder → Add Files to Kilroy...
-7. Add `GoogleService-Info.plist` (already in folder)
-8. Add `Services/FirebaseService.swift` (already in folder)
-9. Build (⌘R)
+**Current Status**:
+- ✅ Firebase packages added (FirebaseAuth, FirebaseFirestore, FirebaseStorage)
+- ✅ GoogleService-Info.plist configured
+- ✅ FirebaseService.swift working
+- ✅ First Kilroy successfully uploaded to Firebase
+- ✅ Build succeeds
+- ✅ Cloud sync working
 
-**What happens after this works**:
-- When Katie drops a Kilroy, it uploads to Firebase
-- When anyone (Katie, Adam, Sam) is near a location with Kilroys, they see ALL Kilroys there
-- The "secret club" works!
+**What Works Now**:
+- Drop a Kilroy → uploads to Firebase Storage + Firestore
+- Image stored in `gs://kilroy-b52c0.firebasestorage.app/kilroys/[UUID].jpg`
+- Metadata stored in Firestore `kilroys` collection with geohash indexing
+- Other users can discover Kilroys at locations (once they have the app)
 
 ---
 
@@ -189,19 +184,26 @@ f865214 - (earlier work)
 - TestFlight distribution
 
 ### 🔄 In Progress
-- Firebase cloud sync (code done, packages need adding)
-- Shared Kilroys between users (blocked on above)
+- None! Firebase is live and working.
 
-### 📋 Planned (Not Started)
-- Address/location editing (user can correct GPS drift)
-- Apple Watch haptic integration
-- AirPods spatial audio whispers
-- "To see, you must be seen" reciprocity logic
-- User accounts / authentication
+### 📋 Planned Features (Priority Order)
+1. **Admin seeding** — Allow Katie + Loud Labs founders to seed Kilroys at locations (whitelist deviceIds, no full auth needed)
+2. **Floor detection** — Use CLLocation.floor for Frontier Tower (14 floors, each themed differently)
+3. **Zone detection** — Sub-floor geofencing (presentation area vs phone booths vs specific desks)
+4. **White text bug fix** — Comment text is white-on-white, needs dark color
+5. **Address/location editing** — User can correct GPS drift
+6. **Meta glasses integration** — Long-term strategy to be first/best developer for Meta
+7. **User authentication** — Apple Sign In (later: Meta/FB for social features)
+8. **"To see, you must be seen" reciprocity** — Must contribute to discover
+9. **Apple Watch haptic integration**
+10. **AirPods spatial audio whispers**
 
 ---
 
-## PART 7: KNOWN ISSUES
+## PART 7: KNOWN ISSUES & BUGS
+
+### 🐛 Active Bugs
+1. **White text on comments** — Comment text in CaptureView is white-on-white, unreadable. Need to change to dark color.
 
 ### GPS Accuracy
 - GPS is typically 10-30 meters accurate
@@ -215,10 +217,6 @@ Katie wants users to be able to correct the auto-detected address. Plan:
 - User searches for correct place ("156 Ruby" or "Town Restaurant")
 - Updates location card with correct POI
 - Similar to Uber/Google Maps address correction
-
-### Capture View
-- Fixed scrolling and keyboard dismiss
-- May need more testing on different device sizes
 
 ---
 
@@ -253,25 +251,37 @@ Katie wants users to be able to correct the auto-detected address. Plan:
 
 ---
 
-## PART 10: WHAT TO DO NEXT
+## PART 10: LAUNCH STRATEGY & FRONTIER TOWER
 
-### Immediate (with Katie's help)
-1. Add Firebase packages in Xcode (she needs to do this in GUI)
-2. Add GoogleService-Info.plist to Xcode project
-3. Add FirebaseService.swift to Xcode project
-4. Build and test
-5. Upload new TestFlight build
+### Frontier Tower — Primary Launch Location
+- **Address**: Kansas City innovation hub, 14-story building
+- **Floors**: Each floor has different theme (AI, robotics, arts/body movement, hacker space, etc.)
+- **Community**: Tech leaders, founders, builders — perfect early adopters
+- **Strategy**: Katie has QR code, considering flyers to post around building
+- **Secret Sauce**: Floor + zone detection could make this LEGENDARY
 
-### After Firebase Works
-1. Test dropping a Kilroy and verify it appears in Firebase Console
-2. Test that a second user (Adam/Sam) can see Katie's Kilroy
-3. Fix any bugs that emerge
+### Floor Detection Technical Plan
+- Use `CLLocation.floor` property (iOS native)
+- Indoor accuracy varies but worth testing at Frontier
+- Each floor = different discovery zone
+- Potential for zone detection WITHIN floors:
+  - Main presentation area
+  - Phone booth offices/cubes
+  - Specific desks/workstations
+- Geohash precision 9+ for room-level accuracy
 
-### Future Features (prioritized)
-1. Address/location editing
-2. Apple Watch haptic integration
-3. "To see, you must be seen" reciprocity
-4. User accounts
+### Launch Tactics
+1. Seed Kilroys throughout Frontier Tower (admin-only feature needed)
+2. Give TestFlight to early adopters (Sam confirmed as tester)
+3. QR code campaign
+4. Possible flyer campaign
+5. Let word-of-mouth spread — "secret club" mystique
+
+### Meta Glasses Long-Term Vision
+- Katie wants to be FIRST/BEST developer for Meta glasses
+- Position Kilroy as spatial computing pioneer
+- Eventually tie to FB/Meta social graph
+- Anonymous for now, but Meta auth makes sense later
 
 ---
 
@@ -319,4 +329,28 @@ When ready to upload a new build:
 
 ---
 
-*This document was created by Claude (CTO) for continuity across chat sessions. Last updated: December 3, 2025, 8:45 AM PST*
+*This document was created by Claude (CTO) for continuity across chat sessions. Last updated: December 5, 2025, 9:50 PM PST*
+
+---
+
+## SESSION NOTES: December 5, 2025
+
+**BREAKTHROUGH**: Firebase backend is LIVE! First Kilroy successfully uploaded.
+
+**What Happened**:
+- ChatGPT (the intern) was given access to the codebase and DESTROYED it
+- Overwrote KilroyApp.swift with OnboardingView.swift
+- Created duplicate files ("FirebaseService 2.swift")
+- Broke the build completely
+- Claude (CTO) restored everything from git, fixed all compilation errors
+- Build now succeeds, Firebase working perfectly
+
+**Key Decisions Made**:
+1. **Auth strategy**: Stay anonymous for now (deviceId tracking sufficient)
+2. **Admin seeding**: Priority #1 feature - whitelist Katie's deviceId
+3. **Floor detection**: Priority #2 - game changer for Frontier Tower launch
+4. **Meta glasses**: Long-term vision, position as first/best developer
+
+**Active Bug**: White text on comments (white-on-white, unreadable)
+
+**Next Session**: Switch to Claude app to view Firebase screenshot and fix white text bug

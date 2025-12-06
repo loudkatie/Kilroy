@@ -86,7 +86,7 @@ class FirebaseService: ObservableObject {
         )
         
         // 5. Save to Firestore
-        try db.collection(kilroysCollection).document(kilroyId).setData(kilroy.toDictionary())
+        try await db.collection(kilroysCollection).document(kilroyId).setData(kilroy.toDictionary())
         
         print("✅ Kilroy uploaded: \(kilroyId) at \(placeName)")
         return kilroy

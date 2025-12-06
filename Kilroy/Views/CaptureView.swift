@@ -123,10 +123,10 @@ struct CaptureView: View {
             do {
                 let _ = try await firebaseService.uploadKilroy(
                     image: image,
-                    coordinate: coordinate,
-                    comment: comment.isEmpty ? nil : comment,
-                    placeName: placeName,
-                    placeAddress: placeAddress
+                    location: coordinate,
+                    placeName: placeName ?? "Unknown Location",
+                    placeAddress: placeAddress,
+                    comment: comment.isEmpty ? nil : comment
                 )
                 print("CaptureView: Kilroy uploaded to Firebase")
             } catch {
@@ -183,6 +183,7 @@ struct CapturePreviewView: View {
                             TextField("Leave a note for whoever finds this...", text: $comment, axis: .vertical)
                                 .textFieldStyle(.plain)
                                 .font(.system(size: 17))
+                                .foregroundColor(.kilroyText)
                                 .padding(KilroySpacing.md)
                                 .frame(minHeight: 100, alignment: .topLeading)
                                 .background(Color.kilroySurface)
