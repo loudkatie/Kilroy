@@ -1,0 +1,586 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 63;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0B8F5E01F410919A710DBA5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8EEDD6A1CEBA0919594C226 /* Assets.xcassets */; };
+		2037516A3E97BA7857A39148 /* kilroy_wordmark_gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = B5DD640C7FB51CFA6C943503 /* kilroy_wordmark_gradient.png */; };
+		2AF939A99AC565392D8C1AFD /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = BB02032E6922C270C295625A /* GoogleSignIn */; };
+		2B24851C140FBDB974E54731 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F49B06FA4524F09F56CEE6 /* OnboardingView.swift */; };
+		3238FD062FE3C32BC222A0BF /* WhisperService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CED56F5B512D6C8BA592431 /* WhisperService.swift */; };
+		414ACFD75EEFE69D14B4A3E6 /* kilroy_icon_purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D7EFCD03E513394FE62881D /* kilroy_icon_purple.png */; };
+		555FF3F6ED1CA13C3CDE1578 /* KilroyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E0B2634DD043BD349072CB /* KilroyApp.swift */; };
+		65B3B6F8C5C881A0DC20B4B0 /* PrivacyCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA71120FEC23B86AB8F95CCD /* PrivacyCircle.swift */; };
+		661C34EFEBA4826DBF886E25 /* DroppedMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8005DAE7911D93E8FD73E1A4 /* DroppedMemory.swift */; };
+		6BED5299BB39AEF196911B38 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE4F4E4C9AD1DB689801B4 /* HomeView.swift */; };
+		6CD97007077A49B7FFAC2E0A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7CFE4EAA95047CDB406297 /* SettingsView.swift */; };
+		731CF3901A9326337448C5D0 /* PulseRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBD0C80A52FACDBDA216AA7 /* PulseRing.swift */; };
+		735C5B6538F49B8E6006BB2B /* MemoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1758FE8C54A85C1AB49E2836 /* MemoryDetailView.swift */; };
+		7893D5D4192349C5FAAAAB7D /* kilroy_icon_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F64F983B8972B00AD247718 /* kilroy_icon_black.png */; };
+		7966773B3749911F979BE8C6 /* MemoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B6A381684384FFBA92B10D /* MemoryCard.swift */; };
+		86A3AEC07D2241A7D15326EC /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DCEF08FA1664159AFABFE58 /* CaptureView.swift */; };
+		9314A17848D56CD20C75C01D /* PhotosService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB3630D434109158F4EC1DD /* PhotosService.swift */; };
+		936FCCC631C25C9D5AB41F83 /* MemoriesSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F488507C2B51C82945C9DCEA /* MemoriesSheet.swift */; };
+		A57D315C1FE4174D1D0FA028 /* CaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51C0DB749A8DDB5584EFD59 /* CaptureButton.swift */; };
+		A8041E381D1B9AC197B89956 /* GooglePhotosService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9436E293D61FC3CCB00D365 /* GooglePhotosService.swift */; };
+		A9B16C50B34E89B7E3B06934 /* kilroy_wordmark_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 8704265B4033FB1F3C3513ED /* kilroy_wordmark_black.png */; };
+		BB0A3DAF27E1EC0E45CEB240 /* kilroy_wordmark_box.png in Resources */ = {isa = PBXBuildFile; fileRef = D6481506C9554131D9F43B0B /* kilroy_wordmark_box.png */; };
+		C2DBACAF3D7B947A072C3AB8 /* KilroyMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA3B76291E50ECD16B5C189 /* KilroyMemory.swift */; };
+		C4F417341A63259070058773 /* MemoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71ECCEAB70708E4B4B25A270 /* MemoryStore.swift */; };
+		C8FF231BF61BAC415FE37204 /* KilroyTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C299555F2052D311AFC3BB8A /* KilroyTheme.swift */; };
+		E09660C2324DE6862B714F6B /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A5BDFE39B9D88B9DD99520 /* AppState.swift */; };
+		E200C4012EE1496E00B3A6BD /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E200C4002EE1496E00B3A6BD /* FirebaseAuth */; };
+		E200C4032EE1496E00B3A6BD /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E200C4022EE1496E00B3A6BD /* FirebaseFirestore */; };
+		E200C4052EE1496E00B3A6BD /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E200C4042EE1496E00B3A6BD /* FirebaseStorage */; };
+		E200C4092EE14A1E00B3A6BD /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E200C4082EE14A1E00B3A6BD /* FirebaseService.swift */; };
+		E200C40D2EE14A9A00B3A6BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E200C40C2EE14A9A00B3A6BD /* GoogleService-Info.plist */; };
+		E2BA8D292EE406BE00C9F2C0 /* AdminConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BA8D282EE406BE00C9F2C0 /* AdminConfig.swift */; };
+		E2BA8D2B2EE40C3D00C9F2C0 /* AdminSeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BA8D2A2EE40C3D00C9F2C0 /* AdminSeedView.swift */; };
+		E30D7BDD8F7083B9F56A2C23 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE6E85C0203B8320083C4E9 /* CameraView.swift */; };
+		E54075F62FD47339AF78BA26 /* CircleSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32572E3E5ADAA20CC1032171 /* CircleSelector.swift */; };
+		E56E2682205A638E636DC8C7 /* MemoryMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3119002CC10711A91CEF893 /* MemoryMapView.swift */; };
+		EACCF1175E763210952B3A88 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DD6CA461D121A67FBF3423 /* LocationService.swift */; };
+		EB511968E11CD1203967891A /* kilroy_icon_black_1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A07ACCF409FDFDE674D197C /* kilroy_icon_black_1024.png */; };
+		F12D5D1FBC7764873FB26D08 /* kilroy_icon_purple_1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 0375B94B83E34EF7338B0941 /* kilroy_icon_purple_1024.png */; };
+		F3326C35A6A30E54CD559570 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68649A2497D982F678F23C6E /* SplashView.swift */; };
+		F921ABD58093EDB57D703769 /* HapticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9783DEAC2B51CE1354B1C385 /* HapticsService.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0375B94B83E34EF7338B0941 /* kilroy_icon_purple_1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kilroy_icon_purple_1024.png; sourceTree = "<group>"; };
+		0CED56F5B512D6C8BA592431 /* WhisperService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperService.swift; sourceTree = "<group>"; };
+		1758FE8C54A85C1AB49E2836 /* MemoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDetailView.swift; sourceTree = "<group>"; };
+		1D7EFCD03E513394FE62881D /* kilroy_icon_purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kilroy_icon_purple.png; sourceTree = "<group>"; };
+		30DD6CA461D121A67FBF3423 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		32572E3E5ADAA20CC1032171 /* CircleSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleSelector.swift; sourceTree = "<group>"; };
+		3A07ACCF409FDFDE674D197C /* kilroy_icon_black_1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kilroy_icon_black_1024.png; sourceTree = "<group>"; };
+		4DBD0C80A52FACDBDA216AA7 /* PulseRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseRing.swift; sourceTree = "<group>"; };
+		5DB3630D434109158F4EC1DD /* PhotosService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosService.swift; sourceTree = "<group>"; };
+		5F64F983B8972B00AD247718 /* kilroy_icon_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kilroy_icon_black.png; sourceTree = "<group>"; };
+		68649A2497D982F678F23C6E /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		69E0B2634DD043BD349072CB /* KilroyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KilroyApp.swift; sourceTree = "<group>"; };
+		6DCEF08FA1664159AFABFE58 /* CaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
+		6E6A589511E28590962E2F8F /* Kilroy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kilroy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		71ECCEAB70708E4B4B25A270 /* MemoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryStore.swift; sourceTree = "<group>"; };
+		8005DAE7911D93E8FD73E1A4 /* DroppedMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppedMemory.swift; sourceTree = "<group>"; };
+		81A5BDFE39B9D88B9DD99520 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		8704265B4033FB1F3C3513ED /* kilroy_wordmark_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kilroy_wordmark_black.png; sourceTree = "<group>"; };
+		9783DEAC2B51CE1354B1C385 /* HapticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsService.swift; sourceTree = "<group>"; };
+		98B6A381684384FFBA92B10D /* MemoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCard.swift; sourceTree = "<group>"; };
+		A7BE4F4E4C9AD1DB689801B4 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B5DD640C7FB51CFA6C943503 /* kilroy_wordmark_gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kilroy_wordmark_gradient.png; sourceTree = "<group>"; };
+		B81834488C0F9EA7D0F9FEF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C299555F2052D311AFC3BB8A /* KilroyTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KilroyTheme.swift; sourceTree = "<group>"; };
+		C51C0DB749A8DDB5584EFD59 /* CaptureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureButton.swift; sourceTree = "<group>"; };
+		CA71120FEC23B86AB8F95CCD /* PrivacyCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyCircle.swift; sourceTree = "<group>"; };
+		D2F49B06FA4524F09F56CEE6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		D3119002CC10711A91CEF893 /* MemoryMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryMapView.swift; sourceTree = "<group>"; };
+		D6481506C9554131D9F43B0B /* kilroy_wordmark_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kilroy_wordmark_box.png; sourceTree = "<group>"; };
+		D8EEDD6A1CEBA0919594C226 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DBA3B76291E50ECD16B5C189 /* KilroyMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KilroyMemory.swift; sourceTree = "<group>"; };
+		DBE6E85C0203B8320083C4E9 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		E200C4082EE14A1E00B3A6BD /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		E200C40C2EE14A9A00B3A6BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E2BA8D282EE406BE00C9F2C0 /* AdminConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminConfig.swift; sourceTree = "<group>"; };
+		E2BA8D2A2EE40C3D00C9F2C0 /* AdminSeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminSeedView.swift; sourceTree = "<group>"; };
+		F488507C2B51C82945C9DCEA /* MemoriesSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesSheet.swift; sourceTree = "<group>"; };
+		F9436E293D61FC3CCB00D365 /* GooglePhotosService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePhotosService.swift; sourceTree = "<group>"; };
+		FB7CFE4EAA95047CDB406297 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DD3F5E57E2DE4904546128AC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AF939A99AC565392D8C1AFD /* GoogleSignIn in Frameworks */,
+				E200C4052EE1496E00B3A6BD /* FirebaseStorage in Frameworks */,
+				E200C4012EE1496E00B3A6BD /* FirebaseAuth in Frameworks */,
+				E200C4032EE1496E00B3A6BD /* FirebaseFirestore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0E7EF63DC7902840DA4D5E8B /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				C299555F2052D311AFC3BB8A /* KilroyTheme.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		281444DC693341330C47763B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E2BA8D282EE406BE00C9F2C0 /* AdminConfig.swift */,
+				E200C4082EE14A1E00B3A6BD /* FirebaseService.swift */,
+				F9436E293D61FC3CCB00D365 /* GooglePhotosService.swift */,
+				9783DEAC2B51CE1354B1C385 /* HapticsService.swift */,
+				30DD6CA461D121A67FBF3423 /* LocationService.swift */,
+				71ECCEAB70708E4B4B25A270 /* MemoryStore.swift */,
+				5DB3630D434109158F4EC1DD /* PhotosService.swift */,
+				0CED56F5B512D6C8BA592431 /* WhisperService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		3F6D28CCBABCD4FC152B1148 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				DBE6E85C0203B8320083C4E9 /* CameraView.swift */,
+				C51C0DB749A8DDB5584EFD59 /* CaptureButton.swift */,
+				32572E3E5ADAA20CC1032171 /* CircleSelector.swift */,
+				98B6A381684384FFBA92B10D /* MemoryCard.swift */,
+				4DBD0C80A52FACDBDA216AA7 /* PulseRing.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		4BA32F3F4F9766BB0EA4BD84 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				81A5BDFE39B9D88B9DD99520 /* AppState.swift */,
+				8005DAE7911D93E8FD73E1A4 /* DroppedMemory.swift */,
+				DBA3B76291E50ECD16B5C189 /* KilroyMemory.swift */,
+				CA71120FEC23B86AB8F95CCD /* PrivacyCircle.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		76D1D64EA8D6856099D092E2 /* Kilroy */ = {
+			isa = PBXGroup;
+			children = (
+				E200C40C2EE14A9A00B3A6BD /* GoogleService-Info.plist */,
+				F614BE8E12099C464F816AAD /* App */,
+				0E7EF63DC7902840DA4D5E8B /* Design */,
+				4BA32F3F4F9766BB0EA4BD84 /* Models */,
+				FF23F5E617C1794CD4509955 /* Resources */,
+				281444DC693341330C47763B /* Services */,
+				E736DCAA70F721DAA4DD42DC /* Views */,
+			);
+			path = Kilroy;
+			sourceTree = "<group>";
+		};
+		7EF21F377A557F80DE1E91A3 = {
+			isa = PBXGroup;
+			children = (
+				76D1D64EA8D6856099D092E2 /* Kilroy */,
+				E53D135B66F86034B8E2BC87 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9C64469E2392FB4C21F7B5B4 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				3A07ACCF409FDFDE674D197C /* kilroy_icon_black_1024.png */,
+				5F64F983B8972B00AD247718 /* kilroy_icon_black.png */,
+				0375B94B83E34EF7338B0941 /* kilroy_icon_purple_1024.png */,
+				1D7EFCD03E513394FE62881D /* kilroy_icon_purple.png */,
+				8704265B4033FB1F3C3513ED /* kilroy_wordmark_black.png */,
+				D6481506C9554131D9F43B0B /* kilroy_wordmark_box.png */,
+				B5DD640C7FB51CFA6C943503 /* kilroy_wordmark_gradient.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		E53D135B66F86034B8E2BC87 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6E6A589511E28590962E2F8F /* Kilroy.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E736DCAA70F721DAA4DD42DC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E2BA8D2A2EE40C3D00C9F2C0 /* AdminSeedView.swift */,
+				6DCEF08FA1664159AFABFE58 /* CaptureView.swift */,
+				A7BE4F4E4C9AD1DB689801B4 /* HomeView.swift */,
+				F488507C2B51C82945C9DCEA /* MemoriesSheet.swift */,
+				1758FE8C54A85C1AB49E2836 /* MemoryDetailView.swift */,
+				D3119002CC10711A91CEF893 /* MemoryMapView.swift */,
+				D2F49B06FA4524F09F56CEE6 /* OnboardingView.swift */,
+				FB7CFE4EAA95047CDB406297 /* SettingsView.swift */,
+				68649A2497D982F678F23C6E /* SplashView.swift */,
+				3F6D28CCBABCD4FC152B1148 /* Components */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F614BE8E12099C464F816AAD /* App */ = {
+			isa = PBXGroup;
+			children = (
+				69E0B2634DD043BD349072CB /* KilroyApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		FF23F5E617C1794CD4509955 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D8EEDD6A1CEBA0919594C226 /* Assets.xcassets */,
+				B81834488C0F9EA7D0F9FEF3 /* Info.plist */,
+				9C64469E2392FB4C21F7B5B4 /* Images */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FE6F9FD1514F9C20772EEB00 /* Kilroy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 317BA587C2152E03D9F019B7 /* Build configuration list for PBXNativeTarget "Kilroy" */;
+			buildPhases = (
+				4F0FDCD6EA2EE6C196E674DC /* Sources */,
+				0EBEB763CA352E369543BB8A /* Resources */,
+				DD3F5E57E2DE4904546128AC /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Kilroy;
+			packageProductDependencies = (
+				BB02032E6922C270C295625A /* GoogleSignIn */,
+				E200C4002EE1496E00B3A6BD /* FirebaseAuth */,
+				E200C4022EE1496E00B3A6BD /* FirebaseFirestore */,
+				E200C4042EE1496E00B3A6BD /* FirebaseStorage */,
+			);
+			productName = Kilroy;
+			productReference = 6E6A589511E28590962E2F8F /* Kilroy.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		20E4B02A4B05B78E02F973D8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					FE6F9FD1514F9C20772EEB00 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = D627395B2B72A49C420FBF03 /* Build configuration list for PBXProject "Kilroy" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 7EF21F377A557F80DE1E91A3;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				0570B9C273D353ADD4D44806 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				E200C3FF2EE1496E00B3A6BD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FE6F9FD1514F9C20772EEB00 /* Kilroy */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0EBEB763CA352E369543BB8A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B8F5E01F410919A710DBA5F /* Assets.xcassets in Resources */,
+				7893D5D4192349C5FAAAAB7D /* kilroy_icon_black.png in Resources */,
+				E200C40D2EE14A9A00B3A6BD /* GoogleService-Info.plist in Resources */,
+				EB511968E11CD1203967891A /* kilroy_icon_black_1024.png in Resources */,
+				414ACFD75EEFE69D14B4A3E6 /* kilroy_icon_purple.png in Resources */,
+				F12D5D1FBC7764873FB26D08 /* kilroy_icon_purple_1024.png in Resources */,
+				A9B16C50B34E89B7E3B06934 /* kilroy_wordmark_black.png in Resources */,
+				BB0A3DAF27E1EC0E45CEB240 /* kilroy_wordmark_box.png in Resources */,
+				2037516A3E97BA7857A39148 /* kilroy_wordmark_gradient.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4F0FDCD6EA2EE6C196E674DC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E09660C2324DE6862B714F6B /* AppState.swift in Sources */,
+				E30D7BDD8F7083B9F56A2C23 /* CameraView.swift in Sources */,
+				A57D315C1FE4174D1D0FA028 /* CaptureButton.swift in Sources */,
+				86A3AEC07D2241A7D15326EC /* CaptureView.swift in Sources */,
+				E54075F62FD47339AF78BA26 /* CircleSelector.swift in Sources */,
+				661C34EFEBA4826DBF886E25 /* DroppedMemory.swift in Sources */,
+				A8041E381D1B9AC197B89956 /* GooglePhotosService.swift in Sources */,
+				F921ABD58093EDB57D703769 /* HapticsService.swift in Sources */,
+				6BED5299BB39AEF196911B38 /* HomeView.swift in Sources */,
+				555FF3F6ED1CA13C3CDE1578 /* KilroyApp.swift in Sources */,
+				C2DBACAF3D7B947A072C3AB8 /* KilroyMemory.swift in Sources */,
+				E2BA8D292EE406BE00C9F2C0 /* AdminConfig.swift in Sources */,
+				C8FF231BF61BAC415FE37204 /* KilroyTheme.swift in Sources */,
+				EACCF1175E763210952B3A88 /* LocationService.swift in Sources */,
+				936FCCC631C25C9D5AB41F83 /* MemoriesSheet.swift in Sources */,
+				7966773B3749911F979BE8C6 /* MemoryCard.swift in Sources */,
+				735C5B6538F49B8E6006BB2B /* MemoryDetailView.swift in Sources */,
+				E56E2682205A638E636DC8C7 /* MemoryMapView.swift in Sources */,
+				C4F417341A63259070058773 /* MemoryStore.swift in Sources */,
+				2B24851C140FBDB974E54731 /* OnboardingView.swift in Sources */,
+				9314A17848D56CD20C75C01D /* PhotosService.swift in Sources */,
+				E200C4092EE14A1E00B3A6BD /* FirebaseService.swift in Sources */,
+				65B3B6F8C5C881A0DC20B4B0 /* PrivacyCircle.swift in Sources */,
+				731CF3901A9326337448C5D0 /* PulseRing.swift in Sources */,
+				6CD97007077A49B7FFAC2E0A /* SettingsView.swift in Sources */,
+				F3326C35A6A30E54CD559570 /* SplashView.swift in Sources */,
+				3238FD062FE3C32BC222A0BF /* WhisperService.swift in Sources */,
+				E2BA8D2B2EE40C3D00C9F2C0 /* AdminSeedView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		9241276F1DCA30BC43CA618C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = VR88MM2R4N;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Kilroy/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.loudlabs.Kilroy;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A7ADA6E69B6D33BDC76CC3F6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		D2A490A3C9A8F7208AB9044C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = VR88MM2R4N;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Kilroy/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.loudlabs.Kilroy;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F24C0A79F69E381EC8F75FE6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		317BA587C2152E03D9F019B7 /* Build configuration list for PBXNativeTarget "Kilroy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D2A490A3C9A8F7208AB9044C /* Debug */,
+				9241276F1DCA30BC43CA618C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D627395B2B72A49C420FBF03 /* Build configuration list for PBXProject "Kilroy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7ADA6E69B6D33BDC76CC3F6 /* Debug */,
+				F24C0A79F69E381EC8F75FE6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0570B9C273D353ADD4D44806 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		E200C3FF2EE1496E00B3A6BD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BB02032E6922C270C295625A /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0570B9C273D353ADD4D44806 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		E200C4002EE1496E00B3A6BD /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E200C3FF2EE1496E00B3A6BD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		E200C4022EE1496E00B3A6BD /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E200C3FF2EE1496E00B3A6BD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		E200C4042EE1496E00B3A6BD /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E200C3FF2EE1496E00B3A6BD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 20E4B02A4B05B78E02F973D8 /* Project object */;
+}
