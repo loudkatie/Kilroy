@@ -43,3 +43,6 @@ fastlane/test_output
 
 # Code Injection
 iOSInjectionProject/
+Kilroy-Misc/
+Wedge-Clone-Repository/
+*.xcuserstate

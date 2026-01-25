@@ -809,6 +809,30 @@ struct ProfileSheet: View {
                 } footer: {
                     Text("Tap copy icon to copy your full device ID.")
                 }
+                
+                // Admin Tools (only visible to admins)
+                if isAdmin {
+                    Section {
+                        NavigationLink {
+                            AdminSeedView()
+                        } label: {
+                            HStack {
+                                Image(systemName: "leaf.fill")
+                                    .foregroundColor(.green)
+                                    .frame(width: 28)
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text("Seed Kilroy")
+                                        .font(.system(size: 15))
+                                    Text("Plant historical content at any location")
+                                        .font(.system(size: 12))
+                                        .foregroundColor(.kilroyTextSecondary)
+                                }
+                            }
+                        }
+                    } header: {
+                        Text("Admin Tools")
+                    }
+                }
             }
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)

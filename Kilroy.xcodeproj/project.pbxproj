@@ -39,6 +39,7 @@
 		E200C4092EE14A1E00B3A6BD /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E200C4082EE14A1E00B3A6BD /* FirebaseService.swift */; };
 		E200C40D2EE14A9A00B3A6BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E200C40C2EE14A9A00B3A6BD /* GoogleService-Info.plist */; };
 		E2BA8D292EE406BE00C9F2C0 /* AdminConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BA8D282EE406BE00C9F2C0 /* AdminConfig.swift */; };
+		E2BA8D2B2EE40C3D00C9F2C0 /* AdminSeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BA8D2A2EE40C3D00C9F2C0 /* AdminSeedView.swift */; };
 		E30D7BDD8F7083B9F56A2C23 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE6E85C0203B8320083C4E9 /* CameraView.swift */; };
 		E54075F62FD47339AF78BA26 /* CircleSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32572E3E5ADAA20CC1032171 /* CircleSelector.swift */; };
 		E56E2682205A638E636DC8C7 /* MemoryMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3119002CC10711A91CEF893 /* MemoryMapView.swift */; };
@@ -85,6 +86,7 @@
 		E200C4082EE14A1E00B3A6BD /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		E200C40C2EE14A9A00B3A6BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E2BA8D282EE406BE00C9F2C0 /* AdminConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminConfig.swift; sourceTree = "<group>"; };
+		E2BA8D2A2EE40C3D00C9F2C0 /* AdminSeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminSeedView.swift; sourceTree = "<group>"; };
 		F488507C2B51C82945C9DCEA /* MemoriesSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesSheet.swift; sourceTree = "<group>"; };
 		F9436E293D61FC3CCB00D365 /* GooglePhotosService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePhotosService.swift; sourceTree = "<group>"; };
 		FB7CFE4EAA95047CDB406297 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 		E736DCAA70F721DAA4DD42DC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E2BA8D2A2EE40C3D00C9F2C0 /* AdminSeedView.swift */,
 				6DCEF08FA1664159AFABFE58 /* CaptureView.swift */,
 				A7BE4F4E4C9AD1DB689801B4 /* HomeView.swift */,
 				F488507C2B51C82945C9DCEA /* MemoriesSheet.swift */,
@@ -342,6 +345,7 @@
 				6CD97007077A49B7FFAC2E0A /* SettingsView.swift in Sources */,
 				F3326C35A6A30E54CD559570 /* SplashView.swift in Sources */,
 				3238FD062FE3C32BC222A0BF /* WhisperService.swift in Sources */,
+				E2BA8D2B2EE40C3D00C9F2C0 /* AdminSeedView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

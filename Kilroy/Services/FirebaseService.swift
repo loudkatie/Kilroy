@@ -92,6 +92,57 @@ class FirebaseService: ObservableObject {
         return kilroy
     }
     
+    // MARK: - Seed a Kilroy (Admin Only)
+    
+    /// Seeds a Kilroy at any location with a custom date (admin only)
+    /// Used for pre-populating locations with historical/institutional content
+    func seedKilroy(
+        image: UIImage,
+        location: CLLocationCoordinate2D,
+        placeName: String,
+        placeAddress: String?,
+        comment: String?,
+        memoryDate: Date
+    ) async throws -> CloudKilroy {
+        
+        // 1. Compress image
+        guard let imageData = image.jpegData(compressionQuality: 0.7) else {
+            throw FirebaseError.imageCompressionFailed
+        }
+        
+        // 2. Generate unique ID
+        let kilroyId = UUID().uuidString
+        
+        // 3. Upload image to Storage
+        let imageRef = storage.reference().child("kilroys/\(kilroyId).jpg")
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        
+        _ = try await imageRef.putDataAsync(imageData, metadata: metadata)
+        let imageURL = try await imageRef.downloadURL().absoluteString
+        
+        // 4. Create Firestore document with seeded flag and custom date
+        let kilroy = CloudKilroy(
+            id: kilroyId,
+            imageURL: imageURL,
+            latitude: location.latitude,
+            longitude: location.longitude,
+            geohash: Geohash.encode(latitude: location.latitude, longitude: location.longitude, precision: 6),
+            placeName: placeName,
+            placeAddress: placeAddress,
+            comment: comment,
+            createdAt: memoryDate,  // Use the custom memory date
+            deviceId: getDeviceId(),
+            isSeeded: true  // Mark as seeded content
+        )
+        
+        // 5. Save to Firestore
+        try await db.collection(kilroysCollection).document(kilroyId).setData(kilroy.toDictionary())
+        
+        print("🌱 Seeded Kilroy: \(kilroyId) at \(placeName) dated \(memoryDate)")
+        return kilroy
+    }
+    
     // MARK: - Fetch Nearby Kilroys
     
     /// Fetches all Kilroys near a location (alias for HomeView compatibility)
@@ -181,6 +232,7 @@ struct CloudKilroy: Identifiable, Hashable {
     let comment: String?
     let createdAt: Date
     let deviceId: String
+    let isSeeded: Bool
     
     var coordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
@@ -194,14 +246,15 @@ struct CloudKilroy: Identifiable, Hashable {
             "geohash": geohash,
             "placeName": placeName,
             "createdAt": Timestamp(date: createdAt),
-            "deviceId": deviceId
+            "deviceId": deviceId,
+            "isSeeded": isSeeded
         ]
         if let address = placeAddress { dict["placeAddress"] = address }
         if let comment = comment { dict["comment"] = comment }
         return dict
     }
     
-    init(id: String, imageURL: String, latitude: Double, longitude: Double, geohash: String, placeName: String, placeAddress: String?, comment: String?, createdAt: Date, deviceId: String) {
+    init(id: String, imageURL: String, latitude: Double, longitude: Double, geohash: String, placeName: String, placeAddress: String?, comment: String?, createdAt: Date, deviceId: String, isSeeded: Bool = false) {
         self.id = id
         self.imageURL = imageURL
         self.latitude = latitude
@@ -212,6 +265,7 @@ struct CloudKilroy: Identifiable, Hashable {
         self.comment = comment
         self.createdAt = createdAt
         self.deviceId = deviceId
+        self.isSeeded = isSeeded
     }
     
     init?(from dict: [String: Any], id: String) {
@@ -234,6 +288,7 @@ struct CloudKilroy: Identifiable, Hashable {
         self.comment = dict["comment"] as? String
         self.createdAt = timestamp.dateValue()
         self.deviceId = deviceId
+        self.isSeeded = dict["isSeeded"] as? Bool ?? false
     }
 }
 
