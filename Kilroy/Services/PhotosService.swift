@@ -118,10 +118,11 @@ final class PhotosService: ObservableObject {
         allMemoryPins.removeAll()
         indexedCount = 0
         
-        // Fetch ALL photos (no limit)
+        // Fetch photos (limit to most recent 500 to avoid memory issues)
         let photoOptions = PHFetchOptions()
         photoOptions.predicate = NSPredicate(format: "mediaSubtype != %d", PHAssetMediaSubtype.photoScreenshot.rawValue)
         photoOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        photoOptions.fetchLimit = 500  // Memory optimization: only index recent photos
         
         let photos = PHAsset.fetchAssets(with: .image, options: photoOptions)
         let videos = PHAsset.fetchAssets(with: .video, options: nil)

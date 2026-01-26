@@ -40,6 +40,8 @@
 		E200C40D2EE14A9A00B3A6BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E200C40C2EE14A9A00B3A6BD /* GoogleService-Info.plist */; };
 		E2BA8D292EE406BE00C9F2C0 /* AdminConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BA8D282EE406BE00C9F2C0 /* AdminConfig.swift */; };
 		E2BA8D2B2EE40C3D00C9F2C0 /* AdminSeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BA8D2A2EE40C3D00C9F2C0 /* AdminSeedView.swift */; };
+		E2FD204C2F26F7EF006A8098 /* AIAgentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FD204A2F26F7EF006A8098 /* AIAgentService.swift */; };
+		E2FD204D2F26F7EF006A8098 /* AudioRecordingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FD204B2F26F7EF006A8098 /* AudioRecordingService.swift */; };
 		E30D7BDD8F7083B9F56A2C23 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE6E85C0203B8320083C4E9 /* CameraView.swift */; };
 		E54075F62FD47339AF78BA26 /* CircleSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32572E3E5ADAA20CC1032171 /* CircleSelector.swift */; };
 		E56E2682205A638E636DC8C7 /* MemoryMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3119002CC10711A91CEF893 /* MemoryMapView.swift */; };
@@ -87,6 +89,8 @@
 		E200C40C2EE14A9A00B3A6BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E2BA8D282EE406BE00C9F2C0 /* AdminConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminConfig.swift; sourceTree = "<group>"; };
 		E2BA8D2A2EE40C3D00C9F2C0 /* AdminSeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminSeedView.swift; sourceTree = "<group>"; };
+		E2FD204A2F26F7EF006A8098 /* AIAgentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIAgentService.swift; sourceTree = "<group>"; };
+		E2FD204B2F26F7EF006A8098 /* AudioRecordingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordingService.swift; sourceTree = "<group>"; };
 		F488507C2B51C82945C9DCEA /* MemoriesSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesSheet.swift; sourceTree = "<group>"; };
 		F9436E293D61FC3CCB00D365 /* GooglePhotosService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePhotosService.swift; sourceTree = "<group>"; };
 		FB7CFE4EAA95047CDB406297 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -118,6 +122,8 @@
 		281444DC693341330C47763B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				E2FD204A2F26F7EF006A8098 /* AIAgentService.swift */,
+				E2FD204B2F26F7EF006A8098 /* AudioRecordingService.swift */,
 				E2BA8D282EE406BE00C9F2C0 /* AdminConfig.swift */,
 				E200C4082EE14A1E00B3A6BD /* FirebaseService.swift */,
 				F9436E293D61FC3CCB00D365 /* GooglePhotosService.swift */,
@@ -328,6 +334,8 @@
 				F921ABD58093EDB57D703769 /* HapticsService.swift in Sources */,
 				6BED5299BB39AEF196911B38 /* HomeView.swift in Sources */,
 				555FF3F6ED1CA13C3CDE1578 /* KilroyApp.swift in Sources */,
+				E2FD204C2F26F7EF006A8098 /* AIAgentService.swift in Sources */,
+				E2FD204D2F26F7EF006A8098 /* AudioRecordingService.swift in Sources */,
 				C2DBACAF3D7B947A072C3AB8 /* KilroyMemory.swift in Sources */,
 				E2BA8D292EE406BE00C9F2C0 /* AdminConfig.swift in Sources */,
 				C8FF231BF61BAC415FE37204 /* KilroyTheme.swift in Sources */,
