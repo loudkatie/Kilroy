@@ -25,8 +25,11 @@ class FirebaseService: ObservableObject {
     // Collection name in Firestore
     private let kilroysCollection = "kilroys"
     
-    // How close you need to be to see a Kilroy (meters)
-    private let discoveryRadius: Double = 50.0
+    // How close you need to be to see a Kilroy (meters) — tight for "easter egg" feel
+    private let discoveryRadius: Double = 15.0
+    
+    // Height tolerance for floor detection (meters) — roughly 1 floor
+    private let altitudeTolerance: Double = 4.0
     
     @Published var nearbyKilroys: [CloudKilroy] = []
     @Published var isLoading = false
@@ -38,15 +41,140 @@ class FirebaseService: ObservableObject {
         print("🔥 FirebaseService configured")
     }
     
-    // MARK: - Upload a Kilroy
+    // MARK: - Upload a Photo Kilroy
     
-    /// Uploads a new Kilroy to Firebase
-    /// - Parameters:
-    ///   - image: The photo to upload
-    ///   - location: Where it was dropped
-    ///   - placeName: Human-readable place name
-    ///   - comment: Optional message
-    /// - Returns: The created CloudKilroy
+    /// Uploads a photo Kilroy to Firebase
+    func uploadKilroy(
+        image: UIImage,
+        location: CLLocationCoordinate2D,
+        altitude: Double?,
+        floor: Int?,
+        placeName: String,
+        placeAddress: String?,
+        placeId: String?,
+        comment: String?
+    ) async throws -> CloudKilroy {
+        
+        guard let imageData = image.jpegData(compressionQuality: 0.7) else {
+            throw FirebaseError.imageCompressionFailed
+        }
+        
+        let kilroyId = UUID().uuidString
+        let imageRef = storage.reference().child("kilroys/photos/\(kilroyId).jpg")
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        
+        _ = try await imageRef.putDataAsync(imageData, metadata: metadata)
+        let imageURL = try await imageRef.downloadURL().absoluteString
+        
+        let kilroy = CloudKilroy(
+            id: kilroyId,
+            mediaType: .photo,
+            mediaURL: imageURL,
+            latitude: location.latitude,
+            longitude: location.longitude,
+            altitude: altitude,
+            floor: floor,
+            geohash: Geohash.encode(latitude: location.latitude, longitude: location.longitude, precision: 8),
+            placeName: placeName,
+            placeAddress: placeAddress,
+            placeId: placeId,
+            comment: comment,
+            createdAt: Date(),
+            deviceId: getDeviceId()
+        )
+        
+        try await db.collection(kilroysCollection).document(kilroyId).setData(kilroy.toDictionary())
+        print("✅ Photo Kilroy uploaded: \(kilroyId) at \(placeName)")
+        return kilroy
+    }
+    
+    // MARK: - Upload an Audio Kilroy
+    
+    /// Uploads an audio Kilroy to Firebase
+    func uploadAudioKilroy(
+        audioData: Data,
+        location: CLLocationCoordinate2D,
+        altitude: Double?,
+        floor: Int?,
+        placeName: String,
+        placeAddress: String?,
+        placeId: String?,
+        comment: String?
+    ) async throws -> CloudKilroy {
+        
+        let kilroyId = UUID().uuidString
+        let audioRef = storage.reference().child("kilroys/audio/\(kilroyId).m4a")
+        let metadata = StorageMetadata()
+        metadata.contentType = "audio/m4a"
+        
+        _ = try await audioRef.putDataAsync(audioData, metadata: metadata)
+        let audioURL = try await audioRef.downloadURL().absoluteString
+        
+        let kilroy = CloudKilroy(
+            id: kilroyId,
+            mediaType: .audio,
+            mediaURL: audioURL,
+            latitude: location.latitude,
+            longitude: location.longitude,
+            altitude: altitude,
+            floor: floor,
+            geohash: Geohash.encode(latitude: location.latitude, longitude: location.longitude, precision: 8),
+            placeName: placeName,
+            placeAddress: placeAddress,
+            placeId: placeId,
+            comment: comment,
+            createdAt: Date(),
+            deviceId: getDeviceId()
+        )
+        
+        try await db.collection(kilroysCollection).document(kilroyId).setData(kilroy.toDictionary())
+        print("🎤 Audio Kilroy uploaded: \(kilroyId) at \(placeName)")
+        return kilroy
+    }
+    
+    // MARK: - Upload a Text Kilroy
+    
+    /// Uploads a text-only Kilroy to Firebase
+    func uploadTextKilroy(
+        textContent: String,
+        location: CLLocationCoordinate2D,
+        altitude: Double?,
+        floor: Int?,
+        placeName: String,
+        placeAddress: String?,
+        placeId: String?,
+        comment: String?
+    ) async throws -> CloudKilroy {
+        
+        let kilroyId = UUID().uuidString
+        
+        let kilroy = CloudKilroy(
+            id: kilroyId,
+            mediaType: .text,
+            mediaURL: "",
+            textContent: textContent,
+            latitude: location.latitude,
+            longitude: location.longitude,
+            altitude: altitude,
+            floor: floor,
+            geohash: Geohash.encode(latitude: location.latitude, longitude: location.longitude, precision: 8),
+            placeName: placeName,
+            placeAddress: placeAddress,
+            placeId: placeId,
+            comment: comment,
+            createdAt: Date(),
+            deviceId: getDeviceId()
+        )
+        
+        try await db.collection(kilroysCollection).document(kilroyId).setData(kilroy.toDictionary())
+        print("📝 Text Kilroy uploaded: \(kilroyId) at \(placeName)")
+        return kilroy
+    }
+    
+    // MARK: - Legacy Upload (backward compatibility)
+    
+    /// Legacy upload for existing code — wraps new method
     func uploadKilroy(
         image: UIImage,
         location: CLLocationCoordinate2D,
@@ -54,42 +182,16 @@ class FirebaseService: ObservableObject {
         placeAddress: String?,
         comment: String?
     ) async throws -> CloudKilroy {
-        
-        // 1. Compress image to save bandwidth/storage
-        guard let imageData = image.jpegData(compressionQuality: 0.7) else {
-            throw FirebaseError.imageCompressionFailed
-        }
-        
-        // 2. Generate unique ID
-        let kilroyId = UUID().uuidString
-        
-        // 3. Upload image to Storage
-        let imageRef = storage.reference().child("kilroys/\(kilroyId).jpg")
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"
-        
-        _ = try await imageRef.putDataAsync(imageData, metadata: metadata)
-        let imageURL = try await imageRef.downloadURL().absoluteString
-        
-        // 4. Create Firestore document
-        let kilroy = CloudKilroy(
-            id: kilroyId,
-            imageURL: imageURL,
-            latitude: location.latitude,
-            longitude: location.longitude,
-            geohash: Geohash.encode(latitude: location.latitude, longitude: location.longitude, precision: 6),
+        return try await uploadKilroy(
+            image: image,
+            location: location,
+            altitude: nil,
+            floor: nil,
             placeName: placeName,
             placeAddress: placeAddress,
-            comment: comment,
-            createdAt: Date(),
-            deviceId: getDeviceId()
+            placeId: nil,
+            comment: comment
         )
-        
-        // 5. Save to Firestore
-        try await db.collection(kilroysCollection).document(kilroyId).setData(kilroy.toDictionary())
-        
-        print("✅ Kilroy uploaded: \(kilroyId) at \(placeName)")
-        return kilroy
     }
     
     // MARK: - Seed a Kilroy (Admin Only)
@@ -221,14 +323,26 @@ class FirebaseService: ObservableObject {
 
 // MARK: - Cloud Kilroy Model
 
-struct CloudKilroy: Identifiable, Hashable {
+/// Media type for a Kilroy
+enum KilroyMediaType: String, Codable {
+    case photo
+    case audio
+    case text
+}
+
+struct CloudKilroy: Identifiable, Hashable, Codable {
     let id: String
-    let imageURL: String
+    let mediaType: KilroyMediaType
+    let mediaURL: String         // Firebase Storage URL (photo/audio) or empty for text
+    let textContent: String?     // For text-only Kilroys
     let latitude: Double
     let longitude: Double
+    let altitude: Double?        // Height in meters (from altimeter)
+    let floor: Int?              // Estimated floor number
     let geohash: String
     let placeName: String
     let placeAddress: String?
+    let placeId: String?         // Apple Maps place identifier
     let comment: String?
     let createdAt: Date
     let deviceId: String
@@ -240,7 +354,8 @@ struct CloudKilroy: Identifiable, Hashable {
     
     func toDictionary() -> [String: Any] {
         var dict: [String: Any] = [
-            "imageURL": imageURL,
+            "mediaType": mediaType.rawValue,
+            "mediaURL": mediaURL,
             "latitude": latitude,
             "longitude": longitude,
             "geohash": geohash,
@@ -249,19 +364,49 @@ struct CloudKilroy: Identifiable, Hashable {
             "deviceId": deviceId,
             "isSeeded": isSeeded
         ]
+        if let textContent = textContent { dict["textContent"] = textContent }
+        if let altitude = altitude { dict["altitude"] = altitude }
+        if let floor = floor { dict["floor"] = floor }
         if let address = placeAddress { dict["placeAddress"] = address }
+        if let placeId = placeId { dict["placeId"] = placeId }
         if let comment = comment { dict["comment"] = comment }
         return dict
     }
     
-    init(id: String, imageURL: String, latitude: Double, longitude: Double, geohash: String, placeName: String, placeAddress: String?, comment: String?, createdAt: Date, deviceId: String, isSeeded: Bool = false) {
+    // Full initializer
+    init(id: String, mediaType: KilroyMediaType = .photo, mediaURL: String, textContent: String? = nil, latitude: Double, longitude: Double, altitude: Double? = nil, floor: Int? = nil, geohash: String, placeName: String, placeAddress: String?, placeId: String? = nil, comment: String?, createdAt: Date, deviceId: String, isSeeded: Bool = false) {
         self.id = id
-        self.imageURL = imageURL
+        self.mediaType = mediaType
+        self.mediaURL = mediaURL
+        self.textContent = textContent
         self.latitude = latitude
         self.longitude = longitude
+        self.altitude = altitude
+        self.floor = floor
         self.geohash = geohash
         self.placeName = placeName
         self.placeAddress = placeAddress
+        self.placeId = placeId
+        self.comment = comment
+        self.createdAt = createdAt
+        self.deviceId = deviceId
+        self.isSeeded = isSeeded
+    }
+    
+    // Legacy initializer (for backward compatibility with existing photo-only Kilroys)
+    init(id: String, imageURL: String, latitude: Double, longitude: Double, geohash: String, placeName: String, placeAddress: String?, comment: String?, createdAt: Date, deviceId: String, isSeeded: Bool = false) {
+        self.id = id
+        self.mediaType = .photo
+        self.mediaURL = imageURL
+        self.textContent = nil
+        self.latitude = latitude
+        self.longitude = longitude
+        self.altitude = nil
+        self.floor = nil
+        self.geohash = geohash
+        self.placeName = placeName
+        self.placeAddress = placeAddress
+        self.placeId = nil
         self.comment = comment
         self.createdAt = createdAt
         self.deviceId = deviceId
@@ -269,8 +414,14 @@ struct CloudKilroy: Identifiable, Hashable {
     }
     
     init?(from dict: [String: Any], id: String) {
-        guard let imageURL = dict["imageURL"] as? String,
-              let latitude = dict["latitude"] as? Double,
+        // Handle both new and legacy format
+        let mediaTypeStr = dict["mediaType"] as? String ?? "photo"
+        guard let mediaType = KilroyMediaType(rawValue: mediaTypeStr) else { return nil }
+        
+        // For legacy records, imageURL maps to mediaURL
+        let mediaURL = dict["mediaURL"] as? String ?? dict["imageURL"] as? String ?? ""
+        
+        guard let latitude = dict["latitude"] as? Double,
               let longitude = dict["longitude"] as? Double,
               let geohash = dict["geohash"] as? String,
               let placeName = dict["placeName"] as? String,
@@ -279,12 +430,17 @@ struct CloudKilroy: Identifiable, Hashable {
         else { return nil }
         
         self.id = id
-        self.imageURL = imageURL
+        self.mediaType = mediaType
+        self.mediaURL = mediaURL
+        self.textContent = dict["textContent"] as? String
         self.latitude = latitude
         self.longitude = longitude
+        self.altitude = dict["altitude"] as? Double
+        self.floor = dict["floor"] as? Int
         self.geohash = geohash
         self.placeName = placeName
         self.placeAddress = dict["placeAddress"] as? String
+        self.placeId = dict["placeId"] as? String
         self.comment = dict["comment"] as? String
         self.createdAt = timestamp.dateValue()
         self.deviceId = deviceId

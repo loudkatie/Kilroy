@@ -19,6 +19,25 @@ final class LocationService: NSObject, ObservableObject {
     @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
     @Published var isMonitoring: Bool = false
     
+    // MARK: - Altitude & Floor
+    
+    /// Current altitude in meters (from barometric altimeter when available)
+    var currentAltitude: Double? {
+        currentLocation?.altitude
+    }
+    
+    /// Estimated floor number based on altitude
+    /// Uses a reference altitude and floor height to calculate
+    var estimatedFloor: Int? {
+        guard let altitude = currentAltitude else { return nil }
+        // Assume ground floor is at ~0m altitude, each floor is ~4m
+        // This should be calibrated per-building for accuracy
+        let floorHeight: Double = 4.0
+        let groundFloorAltitude: Double = 0.0
+        let floor = Int(round((altitude - groundFloorAltitude) / floorHeight))
+        return max(0, floor) // Don't return negative floors
+    }
+    
     // MARK: - Private
     
     private let manager = CLLocationManager()
